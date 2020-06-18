@@ -1,7 +1,7 @@
 const Discord = require('discord.js');
 const client = new Discord.Client();
 
-const sounds = {'bark': 'bark.mp3', 'triple': 'triple.mp3', 'tasty':'tasty1.mp3', 'coffin':'coffindance.mp3', 'crab':'crab_rave.mp3'}
+const sounds = {'bark': 'sounds/bark.mp3', 'triple': 'sounds/triple.mp3', 'tasty':'sounds/tasty1.mp3', 'coffin':'sounds/coffindance.mp3', 'crab':'sounds/crab_rave.mp3'}
 
 client.once('ready', () => {
 	console.log('Ready!');
@@ -10,6 +10,23 @@ client.once('ready', () => {
 async function playSound(message, sound){
     const connection = await message.member.voice.channel.join()
     const dispatcher = connection.play(sounds[sound]);
+
+    dispatcher.on('start', () => {
+        //console.log('bark.mp3 is now playing!');
+    });
+
+    dispatcher.on('finish', () => {
+        //console.log('bark.mp3 has finished playing!');
+        message.member.voice.channel.leave();
+    });
+
+    // Always remember to handle errors appropriately!
+    dispatcher.on('error', console.error);
+}
+
+async function playSoundPath(message, sound){
+    const connection = await message.member.voice.channel.join()
+    const dispatcher = connection.play('sounds/'+sound);
 
     dispatcher.on('start', () => {
         //console.log('bark.mp3 is now playing!');
@@ -46,11 +63,24 @@ client.on('message', message => {
                     message.channel.send("Join a voice channel to use me.")
                 }
             }
-            else(
+            else if(message.content.startsWith("!-"))
+            {
+                let msg = message.content.trim();
+                let command = msg.substring(msg.indexOf("--")+2);
+
+                if (message.member.voice.channel){
+                    playSoundPath(message, command);
+                }
+                else{
+                    message.channel.send("Join a voice channel to use me.")
+                }
+            }
+            else
+            {
                 message.channel.send(command + " is not in my library. Use '--sounds' to see which sounds are.")
-            )
+            }
         }
     
 });
 
-client.login('############);
+client.login('############');
