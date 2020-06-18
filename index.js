@@ -66,21 +66,20 @@ client.on('message', message => {
                     message.channel.send("Join a voice channel to use me.")
                 }
             }
-            else if(message.content.startsWith("!-"))
-            {
-                let msg = message.content.trim();
-                let command = msg.substring(msg.indexOf("--")+2);
-
-                if (message.member.voice.channel){
-                    playSoundPath(message, command);
-                }
-                else{
-                    message.channel.send("Join a voice channel to use me.")
-                }
-            }
             else
             {
                 message.channel.send(command + " is not in my library. Use '--sounds' to see which sounds are.")
+            }
+        }
+        else if(message.content.startsWith("!-"))
+        {
+            let msg = message.content.trim();
+            let command = msg.substring(msg.indexOf("--")+2);
+            if (message.member.voice.channel){
+                playSoundPath(message, command);
+            }
+            else{
+                message.channel.send("Join a voice channel to use me.")
             }
         }
     
