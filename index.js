@@ -1,5 +1,6 @@
 const Discord = require('discord.js');
 const client = new Discord.Client();
+const filesystem = require('fs');
 
 const sounds = {'bark': 'sounds/bark.mp3', 'triple': 'sounds/triple.mp3', 'tasty':'sounds/tasty1.mp3', 'coffin':'sounds/coffindance.mp3', 'crab':'sounds/crab_rave.mp3'}
 
@@ -46,10 +47,12 @@ client.on('message', message => {
     //if(message.channel.id === "722964503557570631"){}
         let soundList = "";
         if (message.content.startsWith("--sounds")) {
-            Object.keys(sounds).forEach(element => {
-                soundList += "**(**" + element + "**)** ";
-            });
-            message.channel.send(soundList);
+
+            ListDirectory(message, "sounds/");
+            // Object.keys(sounds).forEach(element => {
+            //     soundList += "**(**" + element + "**)** ";
+            // });
+            // message.channel.send(soundList);
             //console.log(soundList);
         }
         else if(message.content.startsWith("--")){
@@ -82,5 +85,19 @@ client.on('message', message => {
         }
     
 });
+
+
+function ListDirectory(message, path){
+
+    filesystem.readdir(message, path, function(err, items) {
+        let soundList = "";
+
+        for(var i = 0; i < items.length; i++){
+            soundList += items[i];
+        }
+        message.channel.send(soundList);
+
+    });
+}
 
 client.login('############');
