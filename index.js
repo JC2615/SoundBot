@@ -2,6 +2,7 @@ const Discord = require('discord.js');
 const client = new Discord.Client();
 const filesystem = require('fs');
 
+
 const sounds = {'bark': 'sounds/bark.mp3', 'triple': 'sounds/triple.mp3', 'tasty':'sounds/tasty1.mp3', 'coffin':'sounds/coffindance.mp3', 'crab':'sounds/crab_rave.mp3'}
 
 client.once('ready', () => {
@@ -26,8 +27,11 @@ async function playSound(message, sound){
 }
 
 async function playSoundPath(message, sound){
-    const connection = await message.member.voice.channel.join()
-    const dispatcher = connection.play('sounds/'+sound);
+
+    const connection = await message.member.voice.channel.join();
+
+    let soundPath = 'sounds/' +sound+ '.mp3';
+    const dispatcher = connection.play(soundPath) ;
 
     dispatcher.on('start', () => {
         //console.log('bark.mp3 is now playing!');
@@ -93,11 +97,11 @@ function ListDirectory(message, path){
         let soundList = "";
 
         for(var i = 0; i < items.length; i++){
-            soundList += items[i];
+            soundList += `**(${items[i].substring(0, items[i].indexOf('.mp3'))})** \n`;
         }
         message.channel.send(soundList);
 
     });
 }
-
-client.login('NzIyOTU3ODI3MjY1Nzg5OTc4.XuvUEg.pzfiVfeI1J0pNh1jqgjgzYFesvA');
+//https://open.spotify.com/track/5X4R93Qcw54yp9Utwy7Mlr
+client.login('NzIyOTU3ODI3MjY1Nzg5OTc4.XuvcIQ.mewd5sAIBjniHj7DMlDeDciiCRg');
