@@ -1,0 +1,2 @@
+# SoundBot
+Discord sounboard bot.
