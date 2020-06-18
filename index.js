@@ -74,7 +74,8 @@ client.on('message', message => {
         else if(message.content.startsWith("!-"))
         {
             let msg = message.content.trim();
-            let command = msg.substring(msg.indexOf("--")+2);
+            let command = msg.substring(msg.indexOf("!-")+2);
+            console.log(command);
             if (message.member.voice.channel){
                 playSoundPath(message, command);
             }
@@ -88,7 +89,7 @@ client.on('message', message => {
 
 function ListDirectory(message, path){
 
-    filesystem.readdir(message, path, function(err, items) {
+    filesystem.readdir(path, function(err, items) {
         let soundList = "";
 
         for(var i = 0; i < items.length; i++){
@@ -99,4 +100,4 @@ function ListDirectory(message, path){
     });
 }
 
-client.login('############');
+client.login('NzIyOTU3ODI3MjY1Nzg5OTc4.XuvUEg.pzfiVfeI1J0pNh1jqgjgzYFesvA');
