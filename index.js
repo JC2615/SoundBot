@@ -103,5 +103,5 @@ function ListDirectory(message, path){
 
     });
 }
-//https://open.spotify.com/track/5X4R93Qcw54yp9Utwy7Mlr
-client.login('NzIyOTU3ODI3MjY1Nzg5OTc4.XuvcIQ.mewd5sAIBjniHj7DMlDeDciiCRg');
+
+client.login('####');
