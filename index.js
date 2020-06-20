@@ -104,4 +104,4 @@ function ListDirectory(message, path){
     });
 }
 
-client.login('####');
+client.login('');
